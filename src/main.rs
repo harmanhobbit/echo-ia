@@ -1,12 +1,25 @@
 use clap::{command, Arg};
 
-/// Echo in rust
-/// do not output the trailing newline
-/// enable interpretation of backslash escapes
 fn main() {
     let match_results = command!()
         .about("Echo in Rust")
         .author("Ian Allaway, ian@allaway.tech")
+        .after_long_help(
+            r#"If -e is in effect, the following sequences are recognized:
+
+\a      alert (BEL) 
+\b      backspace 
+\c      produce no further output 
+\e      escape 
+\f      form feed 
+\n      new line 
+\r      carriage return 
+\t      horizontal tab 
+\v      vertical tab
+
+\0NNN and \xHH not implemented yet
+\\ not used a rust appears to do it already"#,
+        )
         .arg(Arg::new("inputString"))
         .arg(
             Arg::new("new_line")
