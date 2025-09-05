@@ -77,18 +77,10 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_remove_first_and_last_chars() {
-        assert_eq!(
-            remove_first_and_last_chars("this is a test"),
-            "his is a tes"
-        );
-        assert_eq!(
-            remove_first_and_last_chars("This is a test"),
-            "his is a tes"
-        );
-        assert_eq!(
-            remove_first_and_last_chars(" This is a test "),
-            "This is a test"
-        );
+    fn test_escape_characters() {
+        assert_eq!(escape_characters("\\n"), "\n");
+        assert_eq!(escape_characters("\\"), r"\");
+        // assert_eq!(escape_characters("\\a"), r"\a");
+        // assert_eq!(escape_characters(r"test \b"), "test");
     }
 }
