@@ -35,21 +35,33 @@ fn main() {
         )
         .get_matches();
 
+    let s = match_results.get_one::<String>("inputString").unwrap();
+    let mut processed_string = s.to_string();
+    if match_results.contains_id("escapeCharacters") {
+        processed_string = escape_characters(s);
+    }
     match match_results.get_one::<bool>("new_line") {
-        Some(false) => println!(
-            "{}",
-            // match_results.get_one::<bool>("new_line").unwrap()
-            match_results.get_one::<String>("inputString").unwrap()
-        ),
+        Some(false) => println!("{}", processed_string),
         Some(true) => print!(
             "{}",
             match_results.get_one::<String>("inputString").unwrap()
         ),
         None => println!("Oops"),
     }
-    if match_results.contains_id("escapeCharacters") {
-        println!("escapeCharacters found");
-    }
+}
+
+fn escape_characters(value: &str) -> String {
+    let split_value = value.split("\\c").collect::<Vec<&str>>();
+    split_value[0]
+        // .replace("\\", "\x5c")
+        .replace("\\a", "\x07")
+        .replace("\\b", "\x08")
+        .replace("\\c", "\x03")
+        .replace("\\e", "\x1b")
+        .replace("\\n", "\x0a")
+        .replace("\\r", "\x0d")
+        .replace("\\t", "\x09")
+        .replace("\\v", "\x0b")
 }
 
 #[allow(dead_code)]
