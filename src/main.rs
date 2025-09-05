@@ -42,10 +42,7 @@ fn main() {
     }
     match match_results.get_one::<bool>("new_line") {
         Some(false) => println!("{}", processed_string),
-        Some(true) => print!(
-            "{}",
-            match_results.get_one::<String>("inputString").unwrap()
-        ),
+        Some(true) => print!("{}", processed_string),
         None => println!("Oops"),
     }
 }
