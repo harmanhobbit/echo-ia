@@ -22,9 +22,13 @@ fn main() {
 
     let s = match_results.get_one::<String>("inputString").unwrap();
     let mut processed_string = s.to_string();
-    if match_results.contains_id("escapeCharacters") {
-        processed_string = helpers::string_helpers::escape_characters(s);
+
+    match match_results.get_one::<bool>("escapeCharacters") {
+        Some(false) => (),
+        Some(true) => processed_string = helpers::string_helpers::escape_characters(s),
+        None => println!("Oops"),
     }
+
     match match_results.get_one::<bool>("new_line") {
         Some(false) => println!("{}", processed_string),
         Some(true) => print!("{}", processed_string),
